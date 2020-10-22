@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace WebAPICorePraktika.Models {
@@ -14,5 +15,6 @@ namespace WebAPICorePraktika.Models {
 
         [Required]
         public string DepartamentPershkrimi { get; set; }
+        public List<PozicioniPunes> pozicioniPune  { get; set; }
     }
 }
