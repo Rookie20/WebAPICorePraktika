@@ -28,11 +28,11 @@ namespace WebAPICorePraktika.Data.PozicionPuneData {
         }
 
         public IEnumerable<PozicioniPunes> GetAllPozicioniPune() {
-            return _context.PozicioniPune.Include(d => d.Departament).ToList();
+            return _context.PozicioniPune.Include(d => d.Departament).Include(d => d.applicationUsers).ToList();
         }
 
         public PozicioniPunes GetPozicioniPunesById(int id) {
-            return _context.PozicioniPune.Include(d => d.Departament).FirstOrDefault(p => p.PozicionPuneId == id);
+            return _context.PozicioniPune.Include(d => d.Departament).Include(d => d.applicationUsers).FirstOrDefault(p => p.PozicionPuneId == id);
         }
 
         public bool SaveChanges() {

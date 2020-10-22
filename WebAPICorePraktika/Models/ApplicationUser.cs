@@ -1,9 +1,13 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WebAPICorePraktika.Models {
     public class ApplicationUser : IdentityUser {
 
+        [ForeignKey("PozicioniPune")]
+        public int PozicionPuneId { get; set; }
+        public PozicioniPunes PozicioniPune { get; set; }
     }
 
     public static class UserRoles {
@@ -21,6 +25,9 @@ namespace WebAPICorePraktika.Models {
         [EmailAddress]
         [Required]
         public string Email { get; set; }
+
+        [Required]
+        public int PozicioniPuneId { get; set; }
 
         [Required]
         public string Password { get; set; }

@@ -5,6 +5,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\20201022135059_ConnectUserJob.cs" />
+    <Compile Remove="Migrations\20201022135059_ConnectUserJob.Designer.cs" />
+    <Compile Remove="Migrations\20201022135304_ConnectUserJob.cs" />
+    <Compile Remove="Migrations\20201022135304_ConnectUserJob.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.1.9" />
     <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.9" />

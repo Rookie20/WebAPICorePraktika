@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WebAPICorePraktika.Models {
@@ -12,5 +13,7 @@ namespace WebAPICorePraktika.Models {
         [Required]
         public int DepartamentId { get; set; }
         public Departamenti Departament { get; set; }
+
+        public List<ApplicationUser> applicationUsers { get; set; }
     }
 }

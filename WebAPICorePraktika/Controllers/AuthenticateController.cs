@@ -66,6 +66,7 @@ namespace WebAPICorePraktika.Controllers {
                 return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = "User already exists!" });
 
             ApplicationUser user = new ApplicationUser() {
+                PozicionPuneId = model.PozicioniPuneId,
                 Email = model.Email,
                 SecurityStamp = Guid.NewGuid().ToString(),
                 UserName = model.Username
@@ -91,7 +92,8 @@ namespace WebAPICorePraktika.Controllers {
             ApplicationUser user = new ApplicationUser() {
                 Email = model.Email,
                 SecurityStamp = Guid.NewGuid().ToString(),
-                UserName = model.Username
+                UserName = model.Username,
+                PozicionPuneId = model.PozicioniPuneId
             };
             var result = await _userManager.CreateAsync(user, model.Password);
             if (!result.Succeeded)
