@@ -23,7 +23,7 @@ namespace WebAPICorePraktika.Data.DepartamentData {
         }
 
         public IEnumerable<Departamenti> GetAllDepartamente() {
-            return _context.Departament.ToList();
+            return _context.Departament.Include(p => p.pozicioniPune).ToList();
         }
 
         public Departamenti GetDepartamentiById(int id) {
