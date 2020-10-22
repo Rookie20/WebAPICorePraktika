@@ -32,7 +32,7 @@ namespace WebAPICorePraktika.Data.PozicionPuneData {
         }
 
         public PozicioniPunes GetPozicioniPunesById(int id) {
-            return _context.PozicioniPune.FirstOrDefault(p => p.PozicionPuneId == id);
+            return _context.PozicioniPune.Include(d => d.Departament).FirstOrDefault(p => p.PozicionPuneId == id);
         }
 
         public bool SaveChanges() {

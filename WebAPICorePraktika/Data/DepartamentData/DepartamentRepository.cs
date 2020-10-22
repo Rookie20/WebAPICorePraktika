@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using WebAPICorePraktika.Data.ApplicationUserData;
@@ -26,7 +27,7 @@ namespace WebAPICorePraktika.Data.DepartamentData {
         }
 
         public Departamenti GetDepartamentiById(int id) {
-            return _context.Departament.FirstOrDefault(d => d.DepartamentId == id);
+            return _context.Departament.Include(p =>p.pozicioniPune).FirstOrDefault(d => d.DepartamentId == id);
         }
 
         public bool SaveChanges() {
@@ -34,7 +35,7 @@ namespace WebAPICorePraktika.Data.DepartamentData {
         }
 
         public void UpdateDepartament(Departamenti departamenti) {
-            _context.Entry(departamenti).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+            _context.Entry(departamenti).State = EntityState.Modified;
         }
     }
 }
