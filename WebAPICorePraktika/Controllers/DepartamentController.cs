@@ -6,7 +6,7 @@ using WebAPICorePraktika.Models;
 
 namespace WebAPICorePraktika.Controllers {
 
-    //[Authorize(Roles = UserRoles.Admin)]
+    [Authorize(Roles = UserRoles.Admin)]
     [Route("api/[controller]")]
     [ApiController]
     public class DepartamentController : ControllerBase {
