@@ -52,8 +52,10 @@ namespace WebAPICorePraktika {
 
             //services.AddDbContext<DepartamentContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("PraktikaDB")));
 
-            services.AddControllers().AddNewtonsoftJson(options =>
-                    options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
+            services.AddMvc().AddNewtonsoftJson(options => {
+                options.SerializerSettings.PreserveReferencesHandling = Newtonsoft.Json.PreserveReferencesHandling.Objects;
+                options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+            });
 
             services.AddControllers();
             services.AddScoped<IDepartamentRepository, DepartamentRepository>();
