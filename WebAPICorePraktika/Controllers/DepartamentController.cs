@@ -1,9 +1,12 @@
 ﻿using System.Collections.Generic;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WebAPICorePraktika.Data.DepartamentData;
 using WebAPICorePraktika.Models;
 
 namespace WebAPICorePraktika.Controllers {
+
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class DepartamentController : ControllerBase {

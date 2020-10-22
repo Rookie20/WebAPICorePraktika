@@ -1,14 +1,14 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using WebAPICorePraktika.Data.DepartamentData;
 using WebAPICorePraktika.Models;
 using Microsoft.EntityFrameworkCore;
+using WebAPICorePraktika.Data.ApplicationUserData;
 
 namespace WebAPICorePraktika.Data.PozicionPuneData {
     public class PozicionPuneRepository : IPozicionPuneRepository {
-        private readonly DepartamentContext _context;
+        private readonly ApplicationUserContext _context;
 
-        public PozicionPuneRepository(DepartamentContext context) {
+        public PozicionPuneRepository(ApplicationUserContext context) {
             _context = context;
         }
 

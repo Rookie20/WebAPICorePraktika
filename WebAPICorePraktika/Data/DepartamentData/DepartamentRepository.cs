@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using WebAPICorePraktika.Data.ApplicationUserData;
 using WebAPICorePraktika.Models;
 
 namespace WebAPICorePraktika.Data.DepartamentData {
     public class DepartamentRepository : IDepartamentRepository {
-        private readonly DepartamentContext _context;
+        private readonly ApplicationUserContext _context;
 
-        public DepartamentRepository(DepartamentContext context) {
+        public DepartamentRepository(ApplicationUserContext context) {
             _context = context;
         }
 
