@@ -8,6 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using WebAPICorePraktika.Data.AdminData;
 using WebAPICorePraktika.Data.ApplicationUserData;
 using WebAPICorePraktika.Data.DepartamentData;
 using WebAPICorePraktika.Data.PozicionPuneData;
@@ -60,6 +61,7 @@ namespace WebAPICorePraktika {
             services.AddControllers();
             services.AddScoped<IDepartamentRepository, DepartamentRepository>();
             services.AddScoped<IPozicionPuneRepository, PozicionPuneRepository>();
+            services.AddScoped<IAdminRepository, AdminRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -23,11 +23,11 @@ namespace WebAPICorePraktika.Data.DepartamentData {
         }
 
         public IEnumerable<Departamenti> GetAllDepartamente() {
-            return _context.Departament.Include(p => p.pozicioniPune).ToList();
+            return _context.Departament.Include(p => p.pozicioniPune).ThenInclude(p => p.applicationUsers).ToList();
         }
 
         public Departamenti GetDepartamentiById(int id) {
-            return _context.Departament.Include(p =>p.pozicioniPune).FirstOrDefault(d => d.DepartamentId == id);
+            return _context.Departament.Include(p =>p.pozicioniPune).ThenInclude(p => p.applicationUsers).FirstOrDefault(d => d.DepartamentId == id);
         }
 
         public bool SaveChanges() {
