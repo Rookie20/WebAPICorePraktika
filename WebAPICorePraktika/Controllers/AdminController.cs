@@ -1,5 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using WebAPICorePraktika.Data.AdminData;
 using WebAPICorePraktika.Models;
 
@@ -40,7 +44,6 @@ namespace WebAPICorePraktika.Controllers {
             _repository.UpdateUser(id, applicationUser);
             _repository.SaveChanges();
             _repository.HistoriaPoziPas(id, historikuPoziPune);
-
             return NoContent();
         }
 

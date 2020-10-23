@@ -11,6 +11,7 @@ using System.Text;
 using WebAPICorePraktika.Data.AdminData;
 using WebAPICorePraktika.Data.ApplicationUserData;
 using WebAPICorePraktika.Data.DepartamentData;
+using WebAPICorePraktika.Data.FilesData;
 using WebAPICorePraktika.Data.PozicionPuneData;
 using WebAPICorePraktika.Models;
 
@@ -62,6 +63,7 @@ namespace WebAPICorePraktika {
             services.AddScoped<IDepartamentRepository, DepartamentRepository>();
             services.AddScoped<IPozicionPuneRepository, PozicionPuneRepository>();
             services.AddScoped<IAdminRepository, AdminRepository>();
+            services.AddScoped<IFilesRepository, FilesRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
