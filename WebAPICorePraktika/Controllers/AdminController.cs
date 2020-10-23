@@ -1,9 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-using System;
+﻿using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using WebAPICorePraktika.Data.AdminData;
 using WebAPICorePraktika.Models;
 
@@ -38,8 +34,13 @@ namespace WebAPICorePraktika.Controllers {
                 return NotFound();
             }
 
+            HistorikuPoziPune historikuPoziPune = new HistorikuPoziPune();
+
+            _repository.HistoriaPoziPerpara(id, historikuPoziPune);
             _repository.UpdateUser(id, applicationUser);
             _repository.SaveChanges();
+            _repository.HistoriaPoziPas(id, historikuPoziPune);
+
             return NoContent();
         }
 

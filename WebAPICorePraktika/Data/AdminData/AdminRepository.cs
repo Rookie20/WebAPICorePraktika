@@ -30,6 +30,8 @@ namespace WebAPICorePraktika.Data.AdminData {
 
         public void UpdateUser(string id, ApplicationUser user) {
             var appUser = GetUserById(id);
+            
+
             if(user != null) {
                 appUser.Email = user.Email;
                 appUser.UserName = user.UserName;
@@ -43,7 +45,6 @@ namespace WebAPICorePraktika.Data.AdminData {
             }
         }
 
-
         public bool PozicionPuneExist(int id) {
             if(_context.PozicioniPune.Where(p => p.PozicionPuneId == id).Any()) {
                 return true;
@@ -53,6 +54,25 @@ namespace WebAPICorePraktika.Data.AdminData {
 
         public void DeleteUser(ApplicationUser user) {
             _context.Users.Remove(user);
+        }
+
+        public void AddHistoria(ApplicationUser user, HistorikuPoziPune historikuPoziPune) {
+            historikuPoziPune.PozicioniPas = user.PozicioniPune.PozicionPuneEmri;
+            _context.HistorikuPoziPunes.Add(historikuPoziPune);
+            _context.SaveChanges();
+        }
+
+        public void HistoriaPoziPerpara(string id, HistorikuPoziPune historikuPoziPune) {
+            var user = GetUserById(id);
+            historikuPoziPune.Id = id;
+            historikuPoziPune.PozicioniPerpara = user.PozicioniPune.PozicionPuneEmri;
+        }
+
+        public void HistoriaPoziPas(string id, HistorikuPoziPune historikuPoziPune) {
+            var user = GetUserById(id);
+            historikuPoziPune.PozicioniPas = user.PozicioniPune.PozicionPuneEmri;
+            _context.HistorikuPoziPunes.Add(historikuPoziPune);
+            SaveChanges();
         }
     }
 }

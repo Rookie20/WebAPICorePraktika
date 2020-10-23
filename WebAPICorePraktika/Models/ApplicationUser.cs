@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -8,6 +9,8 @@ namespace WebAPICorePraktika.Models {
         [ForeignKey("PozicioniPune")]
         public int PozicionPuneId { get; set; }
         public PozicioniPunes PozicioniPune { get; set; }
+
+        public List<HistorikuPoziPune> HistorikuPoziPunes { get; set; }
     }
 
     public static class UserRoles {

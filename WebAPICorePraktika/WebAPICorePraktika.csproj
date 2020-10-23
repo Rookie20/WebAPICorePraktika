@@ -9,6 +9,12 @@
     <Compile Remove="Migrations\20201022135059_ConnectUserJob.Designer.cs" />
     <Compile Remove="Migrations\20201022135304_ConnectUserJob.cs" />
     <Compile Remove="Migrations\20201022135304_ConnectUserJob.Designer.cs" />
+    <Compile Remove="Migrations\20201023091935_NdonjeGje.cs" />
+    <Compile Remove="Migrations\20201023091935_NdonjeGje.Designer.cs" />
+    <Compile Remove="Migrations\20201023102016_DeleteThis.cs" />
+    <Compile Remove="Migrations\20201023102016_DeleteThis.Designer.cs" />
+    <Compile Remove="Migrations\20201023102653_Historia.cs" />
+    <Compile Remove="Migrations\20201023102653_Historia.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

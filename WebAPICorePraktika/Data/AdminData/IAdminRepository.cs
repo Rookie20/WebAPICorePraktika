@@ -9,10 +9,11 @@ namespace WebAPICorePraktika.Data.AdminData {
 
         IEnumerable<ApplicationUser> GetAllUsers();
         ApplicationUser GetUserById(string id);
-
         void UpdateUser(string id, ApplicationUser user);
-
         void DeleteUser(ApplicationUser user);
+
+        void HistoriaPoziPerpara(string id, HistorikuPoziPune historikuPoziPune);
+        void HistoriaPoziPas(string id, HistorikuPoziPune historikuPoziPune);
         bool SaveChanges();
     }
 }

@@ -13,5 +13,6 @@ namespace WebAPICorePraktika.Data.ApplicationUserData {
 
         public DbSet<Departamenti> Departament { get; set; }
         public DbSet<PozicioniPunes> PozicioniPune { get; set; }
+        public DbSet<HistorikuPoziPune> HistorikuPoziPunes { get; set; }
     }
 }
