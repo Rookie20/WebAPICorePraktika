@@ -22,6 +22,7 @@ namespace WebAPICorePraktika.Data.FilesData {
             return url;
         }
 
+
         public IEnumerable<Files> GetAllFiles() {
             return _context.Files.ToList();
         }
