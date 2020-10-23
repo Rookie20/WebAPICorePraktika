@@ -93,7 +93,7 @@ namespace WebAPICorePraktika.Controllers {
 
             }
 
-            return Ok(File(bytes, "application/png", name + ".png", lastModified: DateTime.UtcNow.AddSeconds(-5),
+            return Ok(File(Convert.ToBase64String(bytes), "application/png", name, lastModified: DateTime.UtcNow.AddSeconds(-5),
                 entityTag: new EntityTagHeaderValue("\"AyeWeDidSomething\"")));
         }
 
