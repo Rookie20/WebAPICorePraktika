@@ -11,15 +11,19 @@ using Microsoft.Extensions.Configuration;
 using WebAPICorePraktika.Data.FilesData;
 using WebAPICorePraktika.Models;
 using Microsoft.Net.Http.Headers;
+using Microsoft.Extensions.Hosting;
+using System.Net.Mime;
 
 namespace WebAPICorePraktika.Controllers {
     [Route("api/[controller]")]
     [ApiController]
     public class FilesController : ControllerBase {
         private readonly IFilesRepository _repository;
+        private readonly IHostEnvironment _hostEnvironment;
 
-        public FilesController(IFilesRepository repository) {
+        public FilesController(IFilesRepository repository, IHostEnvironment hostEnvironment) {
             _repository = repository;
+            _hostEnvironment = hostEnvironment;
         }
 
         [HttpGet]
@@ -33,69 +37,82 @@ namespace WebAPICorePraktika.Controllers {
             return Ok(_repository.GetFileById(id));
         }
 
-        [Route("base64/{id}")]
-        public ActionResult GetBase64File(int id) {
+        //[Route("base64/{id}")]
+        //public ActionResult GetBase64File(int id) {
 
-            var files = _repository.GetFileById(id);
-            var base64 = _repository.Base64File(files);
+        //    var files = _repository.GetFileById(id);
+        //    var base64 = _repository.Base64File(files);
 
-            return Ok(base64);
-        }
+        //    return Ok(base64);
+        //}
 
         [HttpPost]
         public IActionResult UploadFiles(IFormFile formFile) {
-            _repository.UploadFile(formFile);
-            return Ok();
+            if (formFile != null) 
+            {
+                if(formFile.Length > 0)
+                {
+                    _repository.UploadFile(formFile);
+                    return Ok();
+                }
+                return BadRequest();
+            }
+            return NotFound();
+            
         }
 
-
-        public IConfigurationRoot GetConnection() {
-            var builder = new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("appSettings.json").Build();
-            return builder;
-
-        }
 
         [HttpGet("download/{id}")]
-        public IActionResult Download(int id) {
+        public IActionResult Download(int id)
+        {
 
-            byte[] bytes = null;
+            var fileDetails = _repository.GetFileById(id);
+            if (fileDetails != null)
+            {
+                //ContentDisposition cd = new ContentDisposition
+                //{
+                //    FileName = fileDetails.FileName,
+                //    Inline = false
+                //};
 
-            string name = string.Empty;
+                //Response.Headers.Add("Content-Disposition", cd.ToString());
 
-            string connectionstring = GetConnection().GetSection("ConnectionStrings").GetSection("PraktikaDB").Value;
+                //var path = _hostEnvironment.ContentRootPath;
+                //var fileReadPath = Path.Combine(path, "Resources", "Images", fileDetails.FileName);
+                //var file = System.IO.File.OpenRead(fileReadPath);
 
-            using (SqlConnection con = new SqlConnection(connectionstring)) {
+                //var mimeFileType = GetMimeTypeByWindowsRegistry(fileDetails.FileType);
 
-                using (SqlCommand cmd = new SqlCommand("Select * from Files where FileId=@FileID", con)) {
+                var path = _hostEnvironment.ContentRootPath;
+                var fileReadPath = Path.Combine(path, "Resources", "Images", fileDetails.FileName);
 
-                    cmd.CommandType = CommandType.Text;
+                byte[] fileBytes = System.IO.File.ReadAllBytes(fileReadPath);
 
-                    cmd.Parameters.AddWithValue("@FileID", id);
-
-                    cmd.Connection = con;
-
-                    con.Open();
-
-                    SqlDataReader sdr = cmd.ExecuteReader();
-
-                    sdr.Read();
-
-                    if (sdr.HasRows) {
-
-                        bytes = (byte[])sdr["FileData"];
-
-                        name = Convert.ToString(sdr["FileName"]);
-
-                    }
-                    con.Close();
-
-                }
-
+                return File(fileBytes, "application/force-download", fileDetails.FileName);
             }
 
-            return Ok(File(Convert.ToBase64String(bytes), "application/png", name, lastModified: DateTime.UtcNow.AddSeconds(-5),
-                entityTag: new EntityTagHeaderValue("\"AyeWeDidSomething\"")));
+            return NotFound();
         }
+
+
+        public static string GetMimeTypeByWindowsRegistry(string fileNameOrExtension)
+        {
+            string mimeType = "application/unknown";
+            string ext = (fileNameOrExtension.Contains(".")) ? System.IO.Path.GetExtension(fileNameOrExtension).ToLower() : "." + fileNameOrExtension;
+            Microsoft.Win32.RegistryKey regKey = Microsoft.Win32.Registry.ClassesRoot.OpenSubKey(ext);
+            if (regKey != null && regKey.GetValue("Content Type") != null) mimeType = regKey.GetValue("Content Type").ToString();
+            return mimeType;
+        }
+
+
+
+        //public FileResult Download(int id)
+        //{
+        //    var file = _repository.GetFileById(id);
+        //    var FileVirtualPath = "~/Resources/Images/" + file.FileName;
+        //    return File(FileVirtualPath, "application/force- download", Path.GetFileName(FileVirtualPath));
+        //}
+
 
     }
 }

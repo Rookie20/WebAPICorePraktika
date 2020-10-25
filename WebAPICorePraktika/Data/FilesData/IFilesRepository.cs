@@ -7,10 +7,13 @@ using WebAPICorePraktika.Models;
 
 namespace WebAPICorePraktika.Data.FilesData {
     public interface IFilesRepository {
+
         void UploadFile(IFormFile formFile);
+
         IEnumerable<Files> GetAllFiles();
+
         Files GetFileById(int id);
 
-        string Base64File(Files files);
+        //string Base64File(Files files);
     }
 }
