@@ -26,6 +26,13 @@ namespace WebAPICorePraktika.Data.DepartamentData {
             return _context.Departament.Include(p => p.PozicioniPune).ThenInclude(p => p.ApplicationUsers).ToList();
         }
 
+        public bool GetDepartamentEmer(string departamentEmer) {
+            if(_context.Departament.Any(p => p.DepartamentEmer.Contains(departamentEmer))) {
+                return true;
+            }
+            return false;
+        }
+
         public Departamenti GetDepartamentiById(int id) {
             return _context.Departament.Include(p =>p.PozicioniPune).ThenInclude(p => p.ApplicationUsers).FirstOrDefault(d => d.DepartamentId == id);
         }

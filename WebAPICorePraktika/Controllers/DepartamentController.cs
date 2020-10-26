@@ -32,9 +32,12 @@ namespace WebAPICorePraktika.Controllers {
 
         [HttpPost("create")]
         public ActionResult<Departamenti> CreateDepartament(Departamenti departamenti) {
-            _repository.CreateDepartament(departamenti);
-            _repository.SaveChanges();
-            return Accepted();
+            if (!_repository.GetDepartamentEmer(departamenti.DepartamentEmer)) {
+                _repository.CreateDepartament(departamenti);
+                _repository.SaveChanges();
+                return Accepted();
+            }
+            return BadRequest();
         }
 
         [HttpPut("edit/{id}")]
