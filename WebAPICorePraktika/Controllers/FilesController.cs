@@ -83,7 +83,6 @@ namespace WebAPICorePraktika.Controllers {
                     System.IO.File.Delete(fileReadPath);
                 }
 
-
                 _repository.SaveChanges();
                 return Ok();
             }
