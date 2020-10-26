@@ -17,13 +17,15 @@ namespace WebAPICorePraktika.Data.AdminData {
         }
 
         public IEnumerable<ApplicationUser> GetAllUsersAktiv(int id) {
-            return _context.Users.Include(p => p.PozicioniPune).ThenInclude(d => d.Departament).
-                Where(p => p.PozicionPuneId == id && p.Aktiv == true).ToList();
+            return _context.Users.Include(p => p.PozicioniPune).ThenInclude(d => d.Departament)
+                .Include(h => h.HistorikuPoziPunes).Include(f => f.Files)
+                .Where(p => p.PozicionPuneId == id && p.Aktiv == true).ToList();
         }
 
         public IEnumerable<ApplicationUser> GetAllUsersJoAktiv(int id) {
-            return _context.Users.Include(p => p.PozicioniPune).ThenInclude(d => d.Departament).
-                Where(p => p.PozicionPuneId == id && p.Aktiv == false).ToList();
+            return _context.Users.Include(p => p.PozicioniPune).ThenInclude(d => d.Departament)
+                .Include(h => h.HistorikuPoziPunes).Include(f => f.Files)
+                .Where(p => p.PozicionPuneId == id && p.Aktiv == false).ToList();
         }
 
         public ApplicationUser GetUserById(string id) {
@@ -39,6 +41,7 @@ namespace WebAPICorePraktika.Data.AdminData {
             
 
             if(user != null) {
+
                 appUser.Email = user.Email;
                 appUser.Emer = user.Emer;
                 appUser.Mbiemer = user.Mbiemer;

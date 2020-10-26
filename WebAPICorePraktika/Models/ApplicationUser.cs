@@ -16,6 +16,7 @@ namespace WebAPICorePraktika.Models {
         public PozicioniPunes PozicioniPune { get; set; }
 
         public List<HistorikuPoziPune> HistorikuPoziPunes { get; set; }
+        public List<Files> Files { get; set; }
     }
 
     public static class UserRoles {
