@@ -14,6 +14,6 @@ namespace WebAPICorePraktika.Models {
         public int DepartamentId { get; set; }
         public Departamenti Departament { get; set; }
 
-        public List<ApplicationUser> applicationUsers { get; set; }
+        public List<ApplicationUser> ApplicationUsers { get; set; }
     }
 }

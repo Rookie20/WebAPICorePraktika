@@ -15,6 +15,6 @@ namespace WebAPICorePraktika.Models {
 
         [Required]
         public string DepartamentPershkrimi { get; set; }
-        public List<PozicioniPunes> pozicioniPune  { get; set; }
+        public List<PozicioniPunes> PozicioniPune  { get; set; }
     }
 }
