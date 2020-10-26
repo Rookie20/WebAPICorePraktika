@@ -18,12 +18,16 @@ namespace WebAPICorePraktika.Controllers {
             _repository = repository;
         }
 
-        [HttpGet]
-        public ActionResult<IEnumerable<ApplicationUser>> GetAllUsers() {
-            return Ok(_repository.GetAllUsers());
+        [HttpGet("{id}")]
+        public ActionResult<IEnumerable<ApplicationUser>> GetAllUsers(int id) {
+
+            if (_repository.PozicionPuneExist(id)) {
+                return Ok(_repository.GetAllUsers(id));
+            }
+            return NotFound();
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("details/{id}")]
         public ActionResult<ApplicationUser> GetUserById(string id) {
             if (id == null) {
                 return NotFound();
@@ -44,6 +48,7 @@ namespace WebAPICorePraktika.Controllers {
             _repository.UpdateUser(id, applicationUser);
             _repository.SaveChanges();
             _repository.HistoriaPoziPas(id, historikuPoziPune);
+
             return NoContent();
         }
 

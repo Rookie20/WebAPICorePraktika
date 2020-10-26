@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 using WebAPICorePraktika.Models;
 
 namespace WebAPICorePraktika.Controllers {
+
     [Route("api/[controller]")]
     [ApiController]
     public class AuthenticateController : ControllerBase {
@@ -68,6 +69,10 @@ namespace WebAPICorePraktika.Controllers {
             ApplicationUser user = new ApplicationUser() {
                 PozicionPuneId = model.PozicioniPuneId,
                 Email = model.Email,
+                Emer = model.Emer,
+                Mbiemer = model.Mbiemer,
+                KartaId = model.KartaId,
+                Aktiv = true,
                 SecurityStamp = Guid.NewGuid().ToString(),
                 UserName = model.Username
             };
@@ -91,6 +96,10 @@ namespace WebAPICorePraktika.Controllers {
 
             ApplicationUser user = new ApplicationUser() {
                 Email = model.Email,
+                Emer = model.Emer,
+                Mbiemer = model.Mbiemer,
+                KartaId = model.KartaId,
+                Aktiv = true,
                 SecurityStamp = Guid.NewGuid().ToString(),
                 UserName = model.Username,
                 PozicionPuneId = model.PozicioniPuneId

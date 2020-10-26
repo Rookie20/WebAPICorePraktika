@@ -6,6 +6,11 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace WebAPICorePraktika.Models {
     public class ApplicationUser : IdentityUser {
 
+        public string Emer { get; set; }
+        public string Mbiemer { get; set; }
+        public string KartaId { get; set; }
+        public bool Aktiv { get; set; }
+
         [ForeignKey("PozicioniPune")]
         public int PozicionPuneId { get; set; }
         public PozicioniPunes PozicioniPune { get; set; }
@@ -21,6 +26,15 @@ namespace WebAPICorePraktika.Models {
     }
 
     public class RegisterModel {
+
+        [Required]
+        public string Emer { get; set; }
+
+        [Required]
+        public string Mbiemer { get; set; }
+
+        [Required]
+        public string KartaId { get; set; }
 
         [Required]
         public string Username { get; set; }

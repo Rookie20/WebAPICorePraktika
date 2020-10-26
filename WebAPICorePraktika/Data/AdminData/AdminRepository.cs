@@ -16,8 +16,9 @@ namespace WebAPICorePraktika.Data.AdminData {
             _context = context;
         }
 
-        public IEnumerable<ApplicationUser> GetAllUsers() {
-            return _context.Users.Include(p => p.PozicioniPune).ThenInclude(d => d.Departament).ToList();
+        public IEnumerable<ApplicationUser> GetAllUsers(int id) {
+            return _context.Users.Include(p => p.PozicioniPune).ThenInclude(d => d.Departament).
+                Where(p => p.PozicionPuneId == id).ToList();
         }
 
         public ApplicationUser GetUserById(string id) {
@@ -34,6 +35,10 @@ namespace WebAPICorePraktika.Data.AdminData {
 
             if(user != null) {
                 appUser.Email = user.Email;
+                appUser.Emer = user.Emer;
+                appUser.Mbiemer = user.Mbiemer;
+                appUser.KartaId = user.KartaId;
+                appUser.Aktiv = user.Aktiv;
                 appUser.UserName = user.UserName;
                 appUser.NormalizedEmail = appUser.Email.ToUpper();
                 appUser.NormalizedUserName = appUser.UserName.ToUpper();
