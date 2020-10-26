@@ -14,13 +14,17 @@ namespace WebAPICorePraktika.Controllers {
             _repository = repository;
         }
 
-        [HttpGet]
-        public ActionResult<IEnumerable<PozicioniPunes>> GetAllPozicionPune() {
-            var allPozi = _repository.GetAllPozicioniPune();
-            return Ok(allPozi);
+        [HttpGet("{id}")]
+        public ActionResult<IEnumerable<PozicioniPunes>> GetAllPozicionPune(int id) {
+
+            if (_repository.DepartamentExist(id)) {
+                var allPozi = _repository.GetAllPozicioniPune(id);
+                return Ok(allPozi);
+            }
+            return NotFound();
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("details/{id}")]
         public ActionResult<PozicioniPunes> GetPozicionPuneById(int id) {
             var pozi = _repository.GetPozicioniPunesById(id);
             if (pozi != null) {

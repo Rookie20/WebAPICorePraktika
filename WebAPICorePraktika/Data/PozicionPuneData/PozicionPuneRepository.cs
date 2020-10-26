@@ -27,8 +27,9 @@ namespace WebAPICorePraktika.Data.PozicionPuneData {
             return false;
         }
 
-        public IEnumerable<PozicioniPunes> GetAllPozicioniPune() {
-            return _context.PozicioniPune.Include(d => d.Departament).Include(d => d.applicationUsers).ToList();
+        public IEnumerable<PozicioniPunes> GetAllPozicioniPune(int id) {
+
+            return _context.PozicioniPune.Include(d => d.Departament).Include(d => d.applicationUsers).Where(d => d.DepartamentId == id).ToList();
         }
 
         public PozicioniPunes GetPozicioniPunesById(int id) {

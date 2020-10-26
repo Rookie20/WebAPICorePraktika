@@ -3,7 +3,7 @@ using WebAPICorePraktika.Models;
 
 namespace WebAPICorePraktika.Data.PozicionPuneData {
     public interface IPozicionPuneRepository {
-        IEnumerable<PozicioniPunes> GetAllPozicioniPune();
+        IEnumerable<PozicioniPunes> GetAllPozicioniPune(int id);
         PozicioniPunes GetPozicioniPunesById(int id);
 
         void CreatePozicionPune(PozicioniPunes pozicioniPunes);
