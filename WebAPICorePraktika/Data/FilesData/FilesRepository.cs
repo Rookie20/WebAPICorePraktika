@@ -16,11 +16,17 @@ namespace WebAPICorePraktika.Data.FilesData {
         }
 
         public IEnumerable<Files> GetAllFiles(string id) {
-            return _context.Files.Include(a => a.ApplicationUser).Where(a => a.Id == id).ToList();
+            return _context.Files.Include(a => a.ApplicationUser)
+                .Include(h => h.ApplicationUser.HistorikuPoziPunes)
+                .Include(p => p.ApplicationUser.PozicioniPune).ThenInclude(d => d.Departament)
+                .Where(a => a.Id == id).ToList();
         }
 
         public Files GetFileById(int id) {
-            return _context.Files.Include(a => a.ApplicationUser).FirstOrDefault(p => p.FileId == id);
+            return _context.Files.Include(a => a.ApplicationUser)
+                .Include(h => h.ApplicationUser.HistorikuPoziPunes)
+                .Include(p => p.ApplicationUser.PozicioniPune).ThenInclude(d => d.Departament)
+                .FirstOrDefault(p => p.FileId == id);
         }
 
 
