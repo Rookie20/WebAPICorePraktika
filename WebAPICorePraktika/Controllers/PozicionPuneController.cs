@@ -5,7 +5,7 @@ using WebAPICorePraktika.Models;
 
 namespace WebAPICorePraktika.Controllers {
 
-    [Route("api/[controller]")]
+    [Route("api/departament/[controller]")]
     [ApiController]
     public class PozicionPuneController : ControllerBase {
         private readonly IPozicionPuneRepository _repository;
@@ -33,7 +33,7 @@ namespace WebAPICorePraktika.Controllers {
             return NotFound();
         }
 
-        [HttpPost]
+        [HttpPost("create")]
         public ActionResult<PozicioniPunes> CreatePozicionPune(PozicioniPunes pozicioniPunes) {
 
             var exist = _repository.DepartamentExist(pozicioniPunes.DepartamentId);
@@ -45,7 +45,7 @@ namespace WebAPICorePraktika.Controllers {
             return Accepted();
         }
 
-        [HttpPut("{id}")]
+        [HttpPut("edit/{id}")]
         public ActionResult<PozicioniPunes> UpdatePozicionPune(int id, PozicioniPunes pozicioniPunes) {
             if(id != pozicioniPunes.PozicionPuneId || !_repository.DepartamentExist(pozicioniPunes.DepartamentId)) {
                 return BadRequest();
@@ -55,7 +55,7 @@ namespace WebAPICorePraktika.Controllers {
             return NoContent();
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("delete/{id}")]
         public ActionResult<PozicioniPunes> DeletePozicionPune(int id) {
             var pozi = _repository.GetPozicioniPunesById(id);
             if(pozi == null) {

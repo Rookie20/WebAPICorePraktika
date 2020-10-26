@@ -16,9 +16,14 @@ namespace WebAPICorePraktika.Data.AdminData {
             _context = context;
         }
 
-        public IEnumerable<ApplicationUser> GetAllUsers(int id) {
+        public IEnumerable<ApplicationUser> GetAllUsersAktiv(int id) {
             return _context.Users.Include(p => p.PozicioniPune).ThenInclude(d => d.Departament).
-                Where(p => p.PozicionPuneId == id).ToList();
+                Where(p => p.PozicionPuneId == id && p.Aktiv == true).ToList();
+        }
+
+        public IEnumerable<ApplicationUser> GetAllUsersJoAktiv(int id) {
+            return _context.Users.Include(p => p.PozicioniPune).ThenInclude(d => d.Departament).
+                Where(p => p.PozicionPuneId == id && p.Aktiv == false).ToList();
         }
 
         public ApplicationUser GetUserById(string id) {

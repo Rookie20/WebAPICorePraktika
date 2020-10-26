@@ -6,7 +6,7 @@ using WebAPICorePraktika.Models;
 
 namespace WebAPICorePraktika.Controllers {
 
-    [Authorize/*(Roles = UserRoles.Admin)*/]
+    //[Authorize/*(Roles = UserRoles.Admin)*/]
     [Route("api/[controller]")]
     [ApiController]
     public class DepartamentController : ControllerBase {
@@ -31,14 +31,14 @@ namespace WebAPICorePraktika.Controllers {
             return NotFound();
         }
 
-        [HttpPost]
+        [HttpPost("create")]
         public ActionResult<Departamenti> CreateDepartament(Departamenti departamenti) {
             _repository.CreateDepartament(departamenti);
             _repository.SaveChanges();
             return Accepted();
         }
 
-        [HttpPut("{id}")]
+        [HttpPut("edit/{id}")]
         public ActionResult<Departamenti> UpdateDepartamenti(int id, Departamenti departamenti) {
             if (id != departamenti.DepartamentId) {
                 return BadRequest();
@@ -48,7 +48,7 @@ namespace WebAPICorePraktika.Controllers {
             return NoContent();
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("delete/{id}")]
         public ActionResult<Departamenti> DeleteDepartamenti(int id) {
             var departamenti = _repository.GetDepartamentiById(id);
             if(departamenti == null) {

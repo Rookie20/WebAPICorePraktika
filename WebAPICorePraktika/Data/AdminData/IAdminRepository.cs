@@ -7,7 +7,8 @@ using WebAPICorePraktika.Models;
 namespace WebAPICorePraktika.Data.AdminData {
     public interface IAdminRepository {
 
-        IEnumerable<ApplicationUser> GetAllUsers(int id);
+        IEnumerable<ApplicationUser> GetAllUsersAktiv(int id);
+        IEnumerable<ApplicationUser> GetAllUsersJoAktiv(int id);
         ApplicationUser GetUserById(string id);
         void UpdateUser(string id, ApplicationUser user);
         void DeleteUser(ApplicationUser user);
