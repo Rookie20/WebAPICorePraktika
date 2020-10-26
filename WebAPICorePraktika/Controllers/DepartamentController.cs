@@ -21,7 +21,7 @@ namespace WebAPICorePraktika.Controllers {
             return Ok(allDepartament);
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("details/{id}")]
         public ActionResult<Departamenti> GetDepartamentById(int id) {
             var departamenti = _repository.GetDepartamentiById(id);
             if (departamenti != null) {

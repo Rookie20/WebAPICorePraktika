@@ -51,6 +51,7 @@ namespace WebAPICorePraktika.Data.AdminData {
                 appUser.NormalizedEmail = appUser.Email.ToUpper();
                 appUser.NormalizedUserName = appUser.UserName.ToUpper();
                 appUser.PhoneNumber = user.PhoneNumber;
+                appUser.PozicionPuneId = user.PozicionPuneId;
 
                 if (PozicionPuneExist(user.PozicionPuneId)) {
                     appUser.PozicionPuneId = user.PozicionPuneId;
@@ -84,8 +85,12 @@ namespace WebAPICorePraktika.Data.AdminData {
         public void HistoriaPoziPas(string id, HistorikuPoziPune historikuPoziPune) {
             var user = GetUserById(id);
             historikuPoziPune.PozicioniPas = user.PozicioniPune.PozicionPuneEmri;
-            _context.HistorikuPoziPunes.Add(historikuPoziPune);
-            SaveChanges();
+
+            if(historikuPoziPune.PozicioniPerpara != historikuPoziPune.PozicioniPas) {
+                _context.HistorikuPoziPunes.Add(historikuPoziPune);
+                SaveChanges();
+            }
+            
         }
 
         public IEnumerable<HistorikuPoziPune> GetHistorikuPoziPunes(string id) {

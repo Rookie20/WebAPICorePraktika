@@ -27,6 +27,20 @@ namespace WebAPICorePraktika.Data.PozicionPuneData {
             return false;
         }
 
+        public bool PozicioniExist(int id) {
+            if (_context.PozicioniPune.Where(d => d.PozicionPuneId == id).Any()) {
+                return true;
+            }
+            return false;
+        }
+
+        public bool PozicionPuneEmriExist(string poziEmer) {
+            if(_context.PozicioniPune.Any(p => p.PozicionPuneEmri.Contains(poziEmer))) {
+                return true;
+            }
+            return false;
+        }
+
         public IEnumerable<PozicioniPunes> GetAllPozicioniPune(int id) {
 
             return _context.PozicioniPune.Include(d => d.Departament).Include(d => d.ApplicationUsers).Where(d => d.DepartamentId == id).ToList();

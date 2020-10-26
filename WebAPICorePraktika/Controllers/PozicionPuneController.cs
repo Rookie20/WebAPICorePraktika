@@ -40,9 +40,12 @@ namespace WebAPICorePraktika.Controllers {
             if (!exist) {
                 return NotFound();
             }
-            _repository.CreatePozicionPune(pozicioniPunes);
-            _repository.SaveChanges();
-            return Accepted();
+            if (!_repository.PozicionPuneEmriExist(pozicioniPunes.PozicionPuneEmri)) {
+                _repository.CreatePozicionPune(pozicioniPunes);
+                _repository.SaveChanges();
+                return Accepted();
+            }
+            return BadRequest();
         }
 
         [HttpPut("edit/{id}")]

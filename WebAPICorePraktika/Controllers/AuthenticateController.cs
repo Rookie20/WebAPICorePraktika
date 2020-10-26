@@ -9,6 +9,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using WebAPICorePraktika.Data.PozicionPuneData;
 using WebAPICorePraktika.Models;
 
 namespace WebAPICorePraktika.Controllers {
@@ -19,11 +20,13 @@ namespace WebAPICorePraktika.Controllers {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly IConfiguration _configuration;
+        private readonly IPozicionPuneRepository _pozicionPuneRepository;
 
-        public AuthenticateController(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager, IConfiguration configuration) {
+        public AuthenticateController(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager, IConfiguration configuration, IPozicionPuneRepository pozicionPuneRepository) {
             _userManager = userManager;
             _roleManager = roleManager;
             _configuration = configuration;
+            _pozicionPuneRepository = pozicionPuneRepository;
         }
 
         [HttpPost]
@@ -62,10 +65,13 @@ namespace WebAPICorePraktika.Controllers {
         [HttpPost]
         [Route("register")]
         public async Task<IActionResult> Register([FromBody] RegisterModel model) {
+            if (!_pozicionPuneRepository.PozicioniExist(model.PozicioniPuneId)) {
+                return BadRequest();
+            }
             var userExists = await _userManager.FindByNameAsync(model.Username);
             if (userExists != null)
                 return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = "User already exists!" });
-
+            
             ApplicationUser user = new ApplicationUser() {
                 PozicionPuneId = model.PozicioniPuneId,
                 Email = model.Email,
@@ -90,10 +96,13 @@ namespace WebAPICorePraktika.Controllers {
         [HttpPost]
         [Route("register-admin")]
         public async Task<IActionResult> RegisterAdmin([FromBody] RegisterModel model) {
+            if (!_pozicionPuneRepository.PozicioniExist(model.PozicioniPuneId)) {
+                return BadRequest();
+            }
             var userExists = await _userManager.FindByNameAsync(model.Username);
             if (userExists != null)
                 return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = "User already exists!" });
-
+            
             ApplicationUser user = new ApplicationUser() {
                 Email = model.Email,
                 Emer = model.Emer,

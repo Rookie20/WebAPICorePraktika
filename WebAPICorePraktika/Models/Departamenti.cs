@@ -11,6 +11,7 @@ namespace WebAPICorePraktika.Models {
         [Required]
         public string DepartamentEmer { get; set; }
 
+        [DataType(DataType.Date)]
         public DateTime DepDataKrijimit { get; set; }
 
         [Required]

@@ -405,7 +405,7 @@ namespace WebAPICorePraktika.Migrations
             modelBuilder.Entity("WebAPICorePraktika.Models.PozicioniPunes", b =>
                 {
                     b.HasOne("WebAPICorePraktika.Models.Departamenti", "Departament")
-                        .WithMany("PozicioniPune")
+                        .WithMany("pozicioniPune")
                         .HasForeignKey("DepartamentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
