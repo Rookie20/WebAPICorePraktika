@@ -9,19 +9,12 @@ using WebAPICorePraktika.Data.ApplicationUserData;
 using WebAPICorePraktika.Models;
 
 namespace WebAPICorePraktika.Data.FilesData {
-    public class FilesRepository : IFilesRepository {
+    public class FilesRepository : IFilesRepository, IDisposable {
         private readonly ApplicationUserContext _context;
 
         public FilesRepository(ApplicationUserContext context) {
             _context = context;
         }
-
-        public string Base64File(Files files) {
-            var base64 = Convert.ToBase64String(files.FileData);
-            var url = string.Format("data:image/png;base64,{0}", base64);
-            return url;
-        }
-
 
         public IEnumerable<Files> GetAllFiles() {
             return _context.Files.ToList();
@@ -31,14 +24,32 @@ namespace WebAPICorePraktika.Data.FilesData {
             return _context.Files.FirstOrDefault(p => p.FileId == id);
         }
 
+
+        private string GetUniqueFileName(string fileName) {
+
+            return Path.GetFileNameWithoutExtension(fileName)
+                + "_"
+                + Guid.NewGuid().ToString().Substring(0, 4)
+                + Path.GetExtension(fileName);
+        }
+
+
         public void UploadFile(IFormFile formFile) {
             if(formFile != null) {
                 if(formFile.Length > 0) {
 
                     var fileName = Path.GetFileName(formFile.FileName);
-                    var fileExtension = Path.GetExtension(fileName);
-                    var newFileName = String.Concat(Guid.NewGuid().ToString(), fileExtension);
+                    var newFileName = GetUniqueFileName(fileName);
 
+                    var fileExtension = Path.GetExtension(fileName);
+
+                    var saveImage = Path.Combine("Resources", "Images");
+                    var filePath = Path.Combine(saveImage, newFileName);
+
+                    var fs = new FileStream(filePath, FileMode.Create);
+                    formFile.CopyTo(fs);
+
+                    
                     var objFile = new Files() {
                         FileId = 0,
                         FileName = newFileName,
@@ -52,9 +63,17 @@ namespace WebAPICorePraktika.Data.FilesData {
                     }
 
                     _context.Files.Add(objFile);
-                    _context.SaveChanges();
+                    fs.Close();
                 }
             }
+        }
+
+        public void Delete(Files formFile) {
+            _context.Files.Remove(formFile);
+        }
+
+        public void SaveChanges() {
+            _context.SaveChanges();
         }
     }
 }

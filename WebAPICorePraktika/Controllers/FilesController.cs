@@ -11,15 +11,18 @@ using Microsoft.Extensions.Configuration;
 using WebAPICorePraktika.Data.FilesData;
 using WebAPICorePraktika.Models;
 using Microsoft.Net.Http.Headers;
+using Microsoft.Extensions.Hosting;
 
 namespace WebAPICorePraktika.Controllers {
     [Route("api/[controller]")]
     [ApiController]
     public class FilesController : ControllerBase {
         private readonly IFilesRepository _repository;
+        private readonly IHostEnvironment _hostEnvironment;
 
-        public FilesController(IFilesRepository repository) {
+        public FilesController(IFilesRepository repository, IHostEnvironment hostEnvironment) {
             _repository = repository;
+            _hostEnvironment = hostEnvironment;
         }
 
         [HttpGet]
@@ -33,69 +36,58 @@ namespace WebAPICorePraktika.Controllers {
             return Ok(_repository.GetFileById(id));
         }
 
-        [Route("base64/{id}")]
-        public ActionResult GetBase64File(int id) {
-
-            var files = _repository.GetFileById(id);
-            var base64 = _repository.Base64File(files);
-
-            return Ok(base64);
-        }
-
         [HttpPost]
         public IActionResult UploadFiles(IFormFile formFile) {
-            _repository.UploadFile(formFile);
-            return Ok();
+            if(formFile != null) {
+                if(formFile.Length > 0) {
+                    _repository.UploadFile(formFile);
+                    _repository.SaveChanges();
+                    return Ok();
+                    
+                }
+                return BadRequest();
+            }
+            return NotFound();
+            
         }
 
-
-        public IConfigurationRoot GetConnection() {
-            var builder = new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("appSettings.json").Build();
-            return builder;
-
-        }
 
         [HttpGet("download/{id}")]
         public IActionResult Download(int id) {
 
-            byte[] bytes = null;
+            var file = _repository.GetFileById(id);
+            if(file != null) {
 
-            string name = string.Empty;
+                var path = _hostEnvironment.ContentRootPath;
+                var fileReadPath = Path.Combine(path, "Resources", "Images", file.FileName);
 
-            string connectionstring = GetConnection().GetSection("ConnectionStrings").GetSection("PraktikaDB").Value;
-
-            using (SqlConnection con = new SqlConnection(connectionstring)) {
-
-                using (SqlCommand cmd = new SqlCommand("Select * from Files where FileId=@FileID", con)) {
-
-                    cmd.CommandType = CommandType.Text;
-
-                    cmd.Parameters.AddWithValue("@FileID", id);
-
-                    cmd.Connection = con;
-
-                    con.Open();
-
-                    SqlDataReader sdr = cmd.ExecuteReader();
-
-                    sdr.Read();
-
-                    if (sdr.HasRows) {
-
-                        bytes = (byte[])sdr["FileData"];
-
-                        name = Convert.ToString(sdr["FileName"]);
-
-                    }
-                    con.Close();
-
-                }
+                
+                byte[] fileBytes = System.IO.File.ReadAllBytes(fileReadPath);
+                return File(fileBytes, "application/force-download", file.FileName);
 
             }
-
-            return Ok(File(Convert.ToBase64String(bytes), "application/png", name, lastModified: DateTime.UtcNow.AddSeconds(-5),
-                entityTag: new EntityTagHeaderValue("\"AyeWeDidSomething\"")));
+            return NotFound();
+            
         }
 
+        [HttpDelete("{id}")]
+        public IActionResult DeleteFile(int id) {
+
+            var file = _repository.GetFileById(id);
+            if(file != null) {
+                _repository.Delete(file);
+
+                var path = _hostEnvironment.ContentRootPath;
+                var fileReadPath = Path.Combine(path, "Resources", "Images", file.FileName);
+
+                if (System.IO.File.Exists(fileReadPath)) {
+                    System.IO.File.Delete(fileReadPath);
+                }
+
+                _repository.SaveChanges();
+                return Ok();
+            }
+            return NotFound();   
+        }
     }
 }

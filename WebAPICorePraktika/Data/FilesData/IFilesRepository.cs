@@ -11,6 +11,8 @@ namespace WebAPICorePraktika.Data.FilesData {
         IEnumerable<Files> GetAllFiles();
         Files GetFileById(int id);
 
-        string Base64File(Files files);
+        void Delete(Files formFile);
+
+        void SaveChanges();
     }
 }
