@@ -58,7 +58,7 @@ namespace WebAPICorePraktika {
                 options.SerializerSettings.PreserveReferencesHandling = Newtonsoft.Json.PreserveReferencesHandling.Objects;
                 options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
             });
-
+             
             services.AddControllers();
             services.AddScoped<IDepartamentRepository, DepartamentRepository>();
             services.AddScoped<IPozicionPuneRepository, PozicionPuneRepository>();
