@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
@@ -16,6 +17,8 @@ namespace WebAPICorePraktika.Models {
 
         [Required]
         public string DepartamentPershkrimi { get; set; }
-        public List<PozicioniPunes> PozicioniPune  { get; set; }
+
+        [JsonIgnore]
+        public  List<PozicioniPunes> PozicioniPune  { get; set; }
     }
 }

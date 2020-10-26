@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Newtonsoft.Json;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WebAPICorePraktika.Models {
@@ -11,6 +12,8 @@ namespace WebAPICorePraktika.Models {
 
         [ForeignKey("ApplicationUser")]
         public string Id { get; set; }
+
+        [JsonIgnore]
         public ApplicationUser ApplicationUser { get; set; }
     }
 }

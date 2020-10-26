@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Newtonsoft.Json;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -12,8 +13,11 @@ namespace WebAPICorePraktika.Models {
         [ForeignKey("Departament")]
         [Required]
         public int DepartamentId { get; set; }
-        public Departamenti Departament { get; set; }
 
+        [JsonIgnore]
+        public virtual Departamenti Departament { get; set; }
+
+        [JsonIgnore]
         public List<ApplicationUser> ApplicationUsers { get; set; }
     }
 }

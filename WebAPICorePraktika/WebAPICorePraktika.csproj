@@ -19,6 +19,8 @@
     <Compile Remove="Migrations\20201026102018_seeanything.Designer.cs" />
     <Compile Remove="Migrations\20201026132240_AnyChanges.cs" />
     <Compile Remove="Migrations\20201026132240_AnyChanges.Designer.cs" />
+    <Compile Remove="Migrations\20201026144713_VirtualChanges.cs" />
+    <Compile Remove="Migrations\20201026144713_VirtualChanges.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -36,6 +38,7 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
   </ItemGroup>
 
   <ItemGroup>
