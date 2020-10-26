@@ -9,7 +9,7 @@ using WebAPICorePraktika.Data.ApplicationUserData;
 using WebAPICorePraktika.Models;
 
 namespace WebAPICorePraktika.Data.FilesData {
-    public class FilesRepository : IFilesRepository, IDisposable {
+    public class FilesRepository : IFilesRepository {
         private readonly ApplicationUserContext _context;
 
         public FilesRepository(ApplicationUserContext context) {

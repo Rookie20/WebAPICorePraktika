@@ -48,8 +48,6 @@ namespace WebAPICorePraktika.Controllers {
                 return BadRequest();
             }
             return NotFound();
-            
-
         }
 
 
