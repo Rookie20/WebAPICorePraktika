@@ -26,7 +26,10 @@ namespace WebAPICorePraktika.Data.AdminData {
         }
 
         public ApplicationUser GetUserById(string id) {
-            return _context.Users.Include(p => p.PozicioniPune).ThenInclude(d => d.Departament).FirstOrDefault(u => u.Id == id);
+            return _context.Users.Include(p => p.PozicioniPune).ThenInclude(d => d.Departament)
+                .Include(h => h.HistorikuPoziPunes)
+                .Include(f => f.Files)
+                .FirstOrDefault(u => u.Id == id);
         }
 
         public bool SaveChanges() {
@@ -83,6 +86,14 @@ namespace WebAPICorePraktika.Data.AdminData {
             historikuPoziPune.PozicioniPas = user.PozicioniPune.PozicionPuneEmri;
             _context.HistorikuPoziPunes.Add(historikuPoziPune);
             SaveChanges();
+        }
+
+        public IEnumerable<HistorikuPoziPune> GetHistorikuPoziPunes(string id) {
+            return _context.HistorikuPoziPunes.Where(a => a.Id == id).ToList();
+        }
+
+        public string UserId(string userName) {
+            return _context.Users.Where(a => a.Email == userName).Select(a => a.Id).FirstOrDefault();
         }
     }
 }

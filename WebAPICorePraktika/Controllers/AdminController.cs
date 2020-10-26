@@ -6,13 +6,24 @@ using WebAPICorePraktika.Models;
 namespace WebAPICorePraktika.Controllers {
 
     [ApiController]
-    [Route("api/departament/pozicionpune/[controller]")]
+    [Route("api/[controller]")]
     public class AdminController : ControllerBase {
         private readonly IAdminRepository _repository;
 
         public AdminController(IAdminRepository repository) {
             _repository = repository;
         }
+
+
+        [HttpGet("personal")]
+        public ActionResult GetPersonalData() {
+            string userName = User.Identity.Name;
+
+            var getUserData = _repository.GetUserById(_repository.UserId(userName));
+
+            return Ok(getUserData);
+        }
+
 
         [HttpGet("aktiv/{id}")]
         public ActionResult<IEnumerable<ApplicationUser>> GetAllUsersAktiv(int id) {

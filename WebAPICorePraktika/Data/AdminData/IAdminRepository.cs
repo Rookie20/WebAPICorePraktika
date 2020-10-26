@@ -6,7 +6,10 @@ namespace WebAPICorePraktika.Data.AdminData {
 
         IEnumerable<ApplicationUser> GetAllUsersAktiv(int id);
         IEnumerable<ApplicationUser> GetAllUsersJoAktiv(int id);
+
+        IEnumerable<HistorikuPoziPune> GetHistorikuPoziPunes(string id);
         ApplicationUser GetUserById(string id);
+        string UserId(string userName);
         void UpdateUser(string id, ApplicationUser user);
         void DeleteUser(ApplicationUser user);
 
