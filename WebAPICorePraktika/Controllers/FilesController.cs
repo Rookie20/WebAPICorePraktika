@@ -1,16 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
+﻿using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Data.SqlClient;
-using Microsoft.Extensions.Configuration;
 using WebAPICorePraktika.Data.FilesData;
 using WebAPICorePraktika.Models;
-using Microsoft.Net.Http.Headers;
 using Microsoft.Extensions.Hosting;
 
 namespace WebAPICorePraktika.Controllers {
@@ -25,22 +18,22 @@ namespace WebAPICorePraktika.Controllers {
             _hostEnvironment = hostEnvironment;
         }
 
-        [HttpGet]
-        public ActionResult<IEnumerable<Files>> GetAllFiles() {
-            return Ok(_repository.GetAllFiles());
+        [HttpGet("{id}")]
+        public ActionResult<IEnumerable<Files>> GetAllFiles(string id) {
+            return Ok(_repository.GetAllFiles(id));
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("details/{id}")]
         public ActionResult<Files> GetFileById(int id) {
 
             return Ok(_repository.GetFileById(id));
         }
 
-        [HttpPost]
-        public IActionResult UploadFiles(IFormFile formFile) {
+        [HttpPost("{id}")]
+        public IActionResult UploadFiles(string id, IFormFile formFile) {
             if(formFile != null) {
                 if(formFile.Length > 0) {
-                    _repository.UploadFile(formFile);
+                    _repository.UploadFile(id, formFile);
                     _repository.SaveChanges();
                     return Ok();
                     
@@ -69,7 +62,7 @@ namespace WebAPICorePraktika.Controllers {
             
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("delete/{id}")]
         public IActionResult DeleteFile(int id) {
 
             var file = _repository.GetFileById(id);

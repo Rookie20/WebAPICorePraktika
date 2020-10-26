@@ -4,7 +4,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
 using WebAPICorePraktika.Data.ApplicationUserData;
 using WebAPICorePraktika.Models;
 
@@ -16,12 +15,12 @@ namespace WebAPICorePraktika.Data.FilesData {
             _context = context;
         }
 
-        public IEnumerable<Files> GetAllFiles() {
-            return _context.Files.ToList();
+        public IEnumerable<Files> GetAllFiles(string id) {
+            return _context.Files.Include(a => a.ApplicationUser).Where(a => a.Id == id).ToList();
         }
 
         public Files GetFileById(int id) {
-            return _context.Files.FirstOrDefault(p => p.FileId == id);
+            return _context.Files.Include(a => a.ApplicationUser).FirstOrDefault(p => p.FileId == id);
         }
 
 
@@ -34,7 +33,7 @@ namespace WebAPICorePraktika.Data.FilesData {
         }
 
 
-        public void UploadFile(IFormFile formFile) {
+        public void UploadFile(string id, IFormFile formFile) {
             if(formFile != null) {
                 if(formFile.Length > 0) {
 
@@ -54,7 +53,8 @@ namespace WebAPICorePraktika.Data.FilesData {
                         FileId = 0,
                         FileName = newFileName,
                         FileType = fileExtension,
-                        FileCreatedOn = DateTime.Now
+                        FileCreatedOn = DateTime.Now,
+                        Id = id
                     };
 
                     using (var target = new MemoryStream()) {

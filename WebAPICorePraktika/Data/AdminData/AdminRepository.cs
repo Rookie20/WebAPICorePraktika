@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using WebAPICorePraktika.Data.ApplicationUserData;
 using WebAPICorePraktika.Models;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Identity;
 
 namespace WebAPICorePraktika.Data.AdminData {
     public class AdminRepository : IAdminRepository {

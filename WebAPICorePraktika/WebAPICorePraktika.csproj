@@ -15,6 +15,8 @@
     <Compile Remove="Migrations\20201023102016_DeleteThis.Designer.cs" />
     <Compile Remove="Migrations\20201023102653_Historia.cs" />
     <Compile Remove="Migrations\20201023102653_Historia.Designer.cs" />
+    <Compile Remove="Migrations\20201026102018_seeanything.cs" />
+    <Compile Remove="Migrations\20201026102018_seeanything.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

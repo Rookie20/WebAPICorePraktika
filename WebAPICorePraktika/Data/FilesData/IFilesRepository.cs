@@ -1,14 +1,11 @@
 ﻿using Microsoft.AspNetCore.Http;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using WebAPICorePraktika.Models;
 
 namespace WebAPICorePraktika.Data.FilesData {
     public interface IFilesRepository {
-        void UploadFile(IFormFile formFile);
-        IEnumerable<Files> GetAllFiles();
+        void UploadFile(string id, IFormFile formFile);
+        IEnumerable<Files> GetAllFiles(string id);
         Files GetFileById(int id);
 
         void Delete(Files formFile);
