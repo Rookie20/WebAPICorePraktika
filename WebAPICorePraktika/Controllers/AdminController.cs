@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using WebAPICorePraktika.Data.AdminData;
+using WebAPICorePraktika.Data.FilesData;
 using WebAPICorePraktika.Models;
 
 namespace WebAPICorePraktika.Controllers {
@@ -9,9 +10,11 @@ namespace WebAPICorePraktika.Controllers {
     [Route("api/[controller]")]
     public class AdminController : ControllerBase {
         private readonly IAdminRepository _repository;
+        private readonly IFilesRepository _filesRepository;
 
-        public AdminController(IAdminRepository repository) {
+        public AdminController(IAdminRepository repository, IFilesRepository filesRepository) {
             _repository = repository;
+            _filesRepository = filesRepository;
         }
 
 
@@ -20,8 +23,10 @@ namespace WebAPICorePraktika.Controllers {
             string userName = User.Identity.Name;
 
             var getUserData = _repository.GetUserById(_repository.UserId(userName));
+            var getUserHistory = _repository.GetHistorikuPoziPunes(_repository.UserId(userName));
+            var getUserFiles = _filesRepository.GetAllFiles(_repository.UserId(userName));
 
-            return Ok(getUserData);
+            return Ok(new { getUserData, getUserHistory, getUserFiles });
         }
 
 

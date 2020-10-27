@@ -14,8 +14,7 @@ namespace WebAPICorePraktika.Models {
         [Required]
         public int DepartamentId { get; set; }
 
-        [JsonIgnore]
-        public virtual Departamenti Departament { get; set; }
+        public  Departamenti Departament { get; set; }
 
         [JsonIgnore]
         public List<ApplicationUser> ApplicationUsers { get; set; }
