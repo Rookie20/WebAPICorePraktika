@@ -41,17 +41,25 @@ namespace WebAPICorePraktika.Data.AdminData {
             
 
             if(user != null) {
-
+                appUser.Id = user.Id;
+                appUser.UserName = user.UserName;
+                appUser.NormalizedUserName = appUser.UserName.ToUpper();
                 appUser.Email = user.Email;
+                appUser.NormalizedEmail = appUser.Email.ToUpper();
+                appUser.PasswordHash = user.PasswordHash;
+                appUser.SecurityStamp = user.SecurityStamp;
+                appUser.ConcurrencyStamp = user.ConcurrencyStamp;
+                appUser.PhoneNumber = user.PhoneNumber;
+                appUser.PhoneNumberConfirmed = user.PhoneNumberConfirmed;
+                appUser.TwoFactorEnabled = user.TwoFactorEnabled;
+                appUser.LockoutEnd = user.LockoutEnd;
+                appUser.LockoutEnabled = user.LockoutEnabled;
+                appUser.AccessFailedCount = appUser.AccessFailedCount;
+                appUser.PozicionPuneId = appUser.PozicionPuneId;
+                appUser.Aktiv = user.Aktiv;
                 appUser.Emer = user.Emer;
                 appUser.Mbiemer = user.Mbiemer;
                 appUser.KartaId = user.KartaId;
-                appUser.Aktiv = user.Aktiv;
-                appUser.UserName = user.UserName;
-                appUser.NormalizedEmail = appUser.Email.ToUpper();
-                appUser.NormalizedUserName = appUser.UserName.ToUpper();
-                appUser.PhoneNumber = user.PhoneNumber;
-                appUser.PozicionPuneId = user.PozicionPuneId;
 
                 if (PozicionPuneExist(user.PozicionPuneId)) {
                     appUser.PozicionPuneId = user.PozicionPuneId;

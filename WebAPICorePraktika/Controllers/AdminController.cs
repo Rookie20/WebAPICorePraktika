@@ -57,7 +57,13 @@ namespace WebAPICorePraktika.Controllers {
                 return NotFound();
             }
 
-            return Ok(_repository.GetUserById(id));
+            var userData = _repository.GetUserById(id);
+            if(userData == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(userData);
         }
 
         [HttpPut("edit/{id}")]

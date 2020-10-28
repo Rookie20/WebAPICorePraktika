@@ -15,13 +15,10 @@ namespace WebAPICorePraktika.Models {
         [ForeignKey("PozicioniPune")]
         public int PozicionPuneId { get; set; }
 
-        [JsonIgnore]
         public PozicioniPunes PozicioniPune { get; set; }
 
-        [JsonIgnore]
         public List<HistorikuPoziPune> HistorikuPoziPunes { get; set; }
 
-        [JsonIgnore]
         public List<Files> Files { get; set; }
     }
 

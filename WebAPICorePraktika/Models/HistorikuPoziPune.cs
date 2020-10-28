@@ -12,8 +12,6 @@ namespace WebAPICorePraktika.Models {
 
         [ForeignKey("ApplicationUser")]
         public string Id { get; set; }
-
-        [JsonIgnore]
         public ApplicationUser ApplicationUser { get; set; }
     }
 }

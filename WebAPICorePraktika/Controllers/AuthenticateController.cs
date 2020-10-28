@@ -80,7 +80,8 @@ namespace WebAPICorePraktika.Controllers {
                 KartaId = model.KartaId,
                 Aktiv = true,
                 SecurityStamp = Guid.NewGuid().ToString(),
-                UserName = model.Username
+                UserName = model.Username,
+                LockoutEnabled = false
             };
             var result = await _userManager.CreateAsync(user, model.Password);
             if (!result.Succeeded)
@@ -102,7 +103,7 @@ namespace WebAPICorePraktika.Controllers {
             var userExists = await _userManager.FindByNameAsync(model.Username);
             if (userExists != null)
                 return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = "User already exists!" });
-            
+
             ApplicationUser user = new ApplicationUser() {
                 Email = model.Email,
                 Emer = model.Emer,
@@ -111,7 +112,8 @@ namespace WebAPICorePraktika.Controllers {
                 Aktiv = true,
                 SecurityStamp = Guid.NewGuid().ToString(),
                 UserName = model.Username,
-                PozicionPuneId = model.PozicioniPuneId
+                PozicionPuneId = model.PozicioniPuneId,
+                LockoutEnabled = false
             };
             var result = await _userManager.CreateAsync(user, model.Password);
             if (!result.Succeeded)
