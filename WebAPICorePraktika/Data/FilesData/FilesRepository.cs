@@ -42,7 +42,7 @@ namespace WebAPICorePraktika.Data.FilesData
                     var fileName = Path.GetFileName(formFile.FileName);
                     var newFileName = GetUniqueFileName(fileName);
 
-                    var fileExtension = Path.GetExtension(fileName);
+                    //var fileExtension = Path.GetExtension(fileName);
 
                     //var saveImage = Path.Combine("Resources", "Images");
                     //var filePath = Path.Combine(saveImage, newFileName);
@@ -56,8 +56,8 @@ namespace WebAPICorePraktika.Data.FilesData
                     var objFile = new Files() {
                         FileId = 0,
                         FileName = newFileName,
-                        FileType = fileExtension,
-                        FileCreatedOn = DateTime.Now,
+                        FileType = formFile.FileType,
+                        FileCreatedOn = formFile.FileCreatedOn,
                         FileData = formFile.FileData,
                         Id = id
                     };
