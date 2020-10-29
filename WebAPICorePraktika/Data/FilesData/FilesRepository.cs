@@ -44,8 +44,8 @@ namespace WebAPICorePraktika.Data.FilesData
 
                     var fileExtension = Path.GetExtension(fileName);
 
-                    var saveImage = Path.Combine("Resources", "Images");
-                    var filePath = Path.Combine(saveImage, newFileName);
+                    //var saveImage = Path.Combine("Resources", "Images");
+                    //var filePath = Path.Combine(saveImage, newFileName);
 
                      //var fs = new FileStream(filePath, FileMode.Create);
                      //FormFile form = new FormFile();

@@ -4,8 +4,8 @@ using WebAPICorePraktika.Models;
 namespace WebAPICorePraktika.Data.AdminData {
     public interface IAdminRepository {
 
-        IEnumerable<ApplicationUser> GetAllUsersAktiv(int id);
-        IEnumerable<ApplicationUser> GetAllUsersJoAktiv(int id);
+        IEnumerable<ApplicationUser> GetAllUsersAktiv(int id, string kerkimi);
+        IEnumerable<ApplicationUser> GetAllUsersJoAktiv(int id, string kerkimi);
 
         IEnumerable<HistorikuPoziPune> GetHistorikuPoziPunes(string id);
         ApplicationUser GetUserById(string id);

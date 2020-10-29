@@ -13,16 +13,37 @@ namespace WebAPICorePraktika.Data.AdminData {
             _context = context;
         }
 
-        public IEnumerable<ApplicationUser> GetAllUsersAktiv(int id) {
-            return _context.Users.Include(p => p.PozicioniPune).ThenInclude(d => d.Departament)
+        public IEnumerable<ApplicationUser> GetAllUsersAktiv(int id, string kerkimi) {
+
+            if (string.IsNullOrEmpty(kerkimi))
+            {
+                return _context.Users.Include(p => p.PozicioniPune).ThenInclude(d => d.Departament)
                 .Include(h => h.HistorikuPoziPunes).Include(f => f.Files)
                 .Where(p => p.PozicionPuneId == id && p.Aktiv == true).ToList();
+            }
+            else
+            {
+                return _context.Users.Include(p => p.PozicioniPune).ThenInclude(d => d.Departament)
+                .Include(h => h.HistorikuPoziPunes).Include(f => f.Files)
+                .Where(p => (p.PozicionPuneId == id && p.Aktiv == true) && p.Email.Contains(kerkimi)).ToList();
+            }
+            
         }
 
-        public IEnumerable<ApplicationUser> GetAllUsersJoAktiv(int id) {
-            return _context.Users.Include(p => p.PozicioniPune).ThenInclude(d => d.Departament)
+        public IEnumerable<ApplicationUser> GetAllUsersJoAktiv(int id, string kerkimi) {
+            if (string.IsNullOrEmpty(kerkimi))
+            {
+                return _context.Users.Include(p => p.PozicioniPune).ThenInclude(d => d.Departament)
                 .Include(h => h.HistorikuPoziPunes).Include(f => f.Files)
                 .Where(p => p.PozicionPuneId == id && p.Aktiv == false).ToList();
+            }
+            else
+            {
+                return _context.Users.Include(p => p.PozicioniPune).ThenInclude(d => d.Departament)
+                .Include(h => h.HistorikuPoziPunes).Include(f => f.Files)
+                .Where(p => (p.PozicionPuneId == id && p.Aktiv == false) && p.Email.Contains(kerkimi)).ToList();
+            }
+            
         }
 
         public ApplicationUser GetUserById(string id) {

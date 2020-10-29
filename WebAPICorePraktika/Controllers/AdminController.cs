@@ -31,20 +31,20 @@ namespace WebAPICorePraktika.Controllers {
 
 
         [HttpGet("aktiv/{id}")]
-        public ActionResult<IEnumerable<ApplicationUser>> GetAllUsersAktiv(int id) {
+        public ActionResult<IEnumerable<ApplicationUser>> GetAllUsersAktiv(int id, string kerkimi) {
 
             if (_repository.PozicionPuneExist(id)) {
-                return Ok(_repository.GetAllUsersAktiv(id));
+                return Ok(_repository.GetAllUsersAktiv(id, kerkimi));
             }
 
             return NotFound();
         }
 
         [HttpGet("joaktiv/{id}")]
-        public ActionResult<IEnumerable<ApplicationUser>> GetAllUsersJoAktiv(int id) {
+        public ActionResult<IEnumerable<ApplicationUser>> GetAllUsersJoAktiv(int id, string kerkimi) {
 
             if (_repository.PozicionPuneExist(id)) {
-                return Ok(_repository.GetAllUsersJoAktiv(id));
+                return Ok(_repository.GetAllUsersJoAktiv(id, kerkimi));
             }
 
             return NotFound();

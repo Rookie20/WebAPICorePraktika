@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.IO;
 using Microsoft.AspNetCore.Mvc;
 using WebAPICorePraktika.Data.FilesData;
 using WebAPICorePraktika.Models;
@@ -11,11 +10,9 @@ namespace WebAPICorePraktika.Controllers
     [ApiController]
     public class FilesController : ControllerBase {
         private readonly IFilesRepository _repository;
-        private readonly IHostEnvironment _hostEnvironment;
 
-        public FilesController(IFilesRepository repository, IHostEnvironment hostEnvironment) {
+        public FilesController(IFilesRepository repository) {
             _repository = repository;
-            _hostEnvironment = hostEnvironment;
         }
 
         [HttpGet("{id}")]
