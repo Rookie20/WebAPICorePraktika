@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -7,7 +6,8 @@ using System.Linq;
 using WebAPICorePraktika.Data.ApplicationUserData;
 using WebAPICorePraktika.Models;
 
-namespace WebAPICorePraktika.Data.FilesData {
+namespace WebAPICorePraktika.Data.FilesData
+{
     public class FilesRepository : IFilesRepository {
         private readonly ApplicationUserContext _context;
 
@@ -16,10 +16,7 @@ namespace WebAPICorePraktika.Data.FilesData {
         }
 
         public IEnumerable<Files> GetAllFiles(string id) {
-            return _context.Files.Include(a => a.ApplicationUser)
-                .Include(h => h.ApplicationUser.HistorikuPoziPunes)
-                .Include(p => p.ApplicationUser.PozicioniPune).ThenInclude(d => d.Departament)
-                .Where(a => a.Id == id).ToList();
+            return _context.Files.Include(a => a.ApplicationUser).Where(a => a.Id == id).ToList();
         }
 
         public Files GetFileById(int id) {
@@ -39,9 +36,8 @@ namespace WebAPICorePraktika.Data.FilesData {
         }
 
 
-        public void UploadFile(string id, IFormFile formFile) {
+        public void UploadFile(string id, Files formFile) {
             if(formFile != null) {
-                if(formFile.Length > 0) {
 
                     var fileName = Path.GetFileName(formFile.FileName);
                     var newFileName = GetUniqueFileName(fileName);
@@ -51,8 +47,10 @@ namespace WebAPICorePraktika.Data.FilesData {
                     var saveImage = Path.Combine("Resources", "Images");
                     var filePath = Path.Combine(saveImage, newFileName);
 
-                    var fs = new FileStream(filePath, FileMode.Create);
-                    formFile.CopyTo(fs);
+                     //var fs = new FileStream(filePath, FileMode.Create);
+                     //FormFile form = new FormFile();
+                     //formFile1.CopyTo(fs);
+                     //fs.Close();
 
                     
                     var objFile = new Files() {
@@ -60,17 +58,17 @@ namespace WebAPICorePraktika.Data.FilesData {
                         FileName = newFileName,
                         FileType = fileExtension,
                         FileCreatedOn = DateTime.Now,
+                        FileData = formFile.FileData,
                         Id = id
                     };
 
-                    using (var target = new MemoryStream()) {
-                        formFile.CopyTo(target);
-                        objFile.FileData = target.ToArray();
-                    }
+                    //using (var target = new MemoryStream()) {
+                    //    //formFile.CopyTo(target);
+                    //    objFile.FileData = target.ToArray();
+                    //}
 
                     _context.Files.Add(objFile);
-                    fs.Close();
-                }
+                    
             }
         }
 

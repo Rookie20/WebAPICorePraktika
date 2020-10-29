@@ -4,7 +4,7 @@ using WebAPICorePraktika.Models;
 
 namespace WebAPICorePraktika.Data.FilesData {
     public interface IFilesRepository {
-        void UploadFile(string id, IFormFile formFile);
+        void UploadFile(string id, Files formFile);
         IEnumerable<Files> GetAllFiles(string id);
         Files GetFileById(int id);
 
